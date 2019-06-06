@@ -34,12 +34,13 @@ namespace ContosoUniversity.Pages.Students
         // Учащиеся отображаются по фамилии в порядке возрастания.
         // В операторе switch сортировка по фамилии в порядке возрастания используется по умолчанию.
         // Когда пользователь щелкает ссылку заголовка столбца, в строке запроса указывается соответствующее значение sortOrder.
-        public async Task OnGetAsync(string sortOrder)
+        public async Task OnGetAsync(string sortOrder, string searchString)
         {
             // Для формирования гиперссылок в заголовках столбцов страница Razor использует NameSort и DateSort с соответствующими значениями строки запроса:
             // sortOrder равен null или пуст, NameSort имеет значение "name_desc". Если sortOrder не является равным null или пустым, для NameSort задается пустая строка.
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+            CurrentFilter = searchString;
 
 
             // инициализирует IQueryable<Student> до оператора switch и изменяет его.
@@ -48,6 +49,12 @@ namespace ContosoUniversity.Pages.Students
             // Таким образом, код IQueryable создает одиночный запрос, который не выполняется ToListAsync();
             IQueryable<Student> studentIQ = from s in _context.Student
                 select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                studentIQ = studentIQ.Where(s => s.LastName.Contains(searchString)
+                                                 || s.FirstMidName.Contains(searchString));
+            }
 
             switch (sortOrder)
             {
