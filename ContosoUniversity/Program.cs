@@ -20,7 +20,8 @@ namespace ContosoUniversity
                 try
                 {
                     var context = services.GetRequiredService<SchoolContext>();
-
+                    DbInitializer.Initialize(context);
+                    
                     // EnsureCreated позволяет проверить существование базы данных для контекста.
                     // Если контекст существует, никаких действий не предпринимается.
                     // Если контекст не существует, создаются база данных и вся ее схема.
