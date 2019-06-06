@@ -20,23 +20,42 @@ namespace ContosoUniversity.Pages.Students
 
         [BindProperty]
         public Student Student { get; set; }
+        public string ErrorMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+
+        // необязательный параметр saveChangesError указывает, был ли метод вызван после того, как произошел сбой при удалении объекта учащегося.
+        // Операция удаления может завершиться сбоем из-за временных проблем с сетью.
+        // Вероятность возникновения временных проблем с сетью выше в облаке.
+        // saveChangesError имеет значение false при вызове OnGetAsync страницы Delete из пользовательского интерфейса.
+        // Если OnGetAsync вызывается методом OnPostAsync (из-за сбоя операции удаления), параметру saveChangesError присваивается значение true.
+        public async Task<IActionResult> OnGetAsync(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Student = await _context.Student.FirstOrDefaultAsync(m => m.ID == id);
+            Student = await _context.Student
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Student == null)
             {
                 return NotFound();
             }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ErrorMessage = "Delete failed. Try again";
+            }
+
             return Page();
         }
 
+        // Bpdktrftn выбранную сущность и вызывает метод Remove, чтобы присвоить ей состояние Deleted.
+        // При вызове метода SaveChanges создается инструкция SQL DELETE.
+        // В случае сбоя Remove:Вызывается исключение базы данных.
+        // Вызывается метод OnGetAsync страницы Delete с параметром saveChangesError= true.
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
@@ -44,15 +63,27 @@ namespace ContosoUniversity.Pages.Students
                 return NotFound();
             }
 
-            Student = await _context.Student.FindAsync(id);
+            var student = await _context.Student
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Student != null)
+            if (student == null)
             {
-                _context.Student.Remove(Student);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            try
+            {
+                _context.Student.Remove(student);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                //Log the error (uncomment ex variable name and write a log.)
+                return RedirectToAction("./Delete",
+                    new { id, saveChangesError = true });
+            }
         }
     }
 }

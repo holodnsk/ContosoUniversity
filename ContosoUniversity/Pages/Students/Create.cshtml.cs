@@ -33,10 +33,27 @@ namespace ContosoUniversity.Pages.Students
                 return Page();
             }
 
-            _context.Student.Add(Student);
-            await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            // TryUpdateModelAsync<Student> пытается обновить объект emptyStudent,
+            // используя отправленные значения формы из свойства PageContext в PageModel.
+            // TryUpdateModelAsync обновляет только перечисленные свойства
+            // (s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate).
+            // Второй аргумент("student", // Prefix) представляет собой префикс для поиска значений.
+            // Задается без учета регистра символов.
+            // Отправленные значения формы преобразуются в типы в модели Student с использованием привязки модели https://docs.microsoft.com/ru-ru/aspnet/core/mvc/models/model-binding?view=aspnetcore-2.2#how-model-binding-works .
+            var emptyStudent = new Student();
+
+            if (await TryUpdateModelAsync<Student>(
+                emptyStudent,
+                "student",   // Prefix for form value.
+                s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
+            {
+                _context.Student.Add(emptyStudent);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+
+            return null;
         }
     }
 }
