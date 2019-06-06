@@ -18,7 +18,7 @@ namespace ContosoUniversity.Pages.Students
             _context = context;
         }
 
-        public IList<Student> Student { get;set; }
+        public PaginatedList<Student> Student { get;set; }
 
         // свойства для хранения параметров сортировки:
         public string NameSort { get; set; }
@@ -34,13 +34,23 @@ namespace ContosoUniversity.Pages.Students
         // Учащиеся отображаются по фамилии в порядке возрастания.
         // В операторе switch сортировка по фамилии в порядке возрастания используется по умолчанию.
         // Когда пользователь щелкает ссылку заголовка столбца, в строке запроса указывается соответствующее значение sortOrder.
-        public async Task OnGetAsync(string sortOrder, string searchString)
+        public async Task OnGetAsync(string sortOrder,
+            string currentFilter, string searchString, int? pageIndex)
         {
+            CurrentSort = sortOrder;
             // Для формирования гиперссылок в заголовках столбцов страница Razor использует NameSort и DateSort с соответствующими значениями строки запроса:
             // sortOrder равен null или пуст, NameSort имеет значение "name_desc". Если sortOrder не является равным null или пустым, для NameSort задается пустая строка.
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             DateSort = sortOrder == "Date" ? "date_desc" : "Date";
             CurrentFilter = searchString;
+            if (searchString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
 
             // инициализирует IQueryable<Student> до оператора switch и изменяет его.
@@ -73,7 +83,9 @@ namespace ContosoUniversity.Pages.Students
             }
 
             // IQueryable преобразуются в коллекцию путем вызова метода, такого как ToListAsync. 
-            Student = await studentIQ.AsNoTracking().ToListAsync();
+            int pageSize = 3;
+            Student = await PaginatedList<Student>.CreateAsync(
+                studentIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }
