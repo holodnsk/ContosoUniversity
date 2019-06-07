@@ -31,6 +31,7 @@ namespace ContosoUniversity.Pages.Instructors
                 .Include(i => i.CourseAssignments)
                 .ThenInclude(i => i.Course)
                 .ThenInclude(i => i.Department)
+                // упреждающая загрузка для Enrollments и Students:
                 //.Include(i => i.CourseAssignments)
                 //.ThenInclude(i => i.Course)
                 //.ThenInclude(i => i.Enrollments)
