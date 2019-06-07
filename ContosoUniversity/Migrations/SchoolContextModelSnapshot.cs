@@ -6,6 +6,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+// for init run commands package manager console:
+// Drop-Database
+// Update-Database
+
 namespace ContosoUniversity.Migrations
 {
     [DbContext(typeof(SchoolContext))]
