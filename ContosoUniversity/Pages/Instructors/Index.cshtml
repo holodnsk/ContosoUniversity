@@ -2,20 +2,17 @@
 @model ContosoUniversity.Pages.Instructors.IndexModel
 
 @{
-    ViewData["Title"] = "Instructors";
+    ViewData["Title"] = "Список инструкторов";
 }
 
-<h2>Instructors</h2>
-
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Зарегистрировать инструктора</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Hire Date</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
             <th></th>
         </tr>
     </thead>
@@ -33,9 +30,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstMidName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HireDate)
                 </td>
                 <td>
                     <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
@@ -66,7 +60,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Grade)
-                </td>
+                </td>1
             </tr>
         }
     </table>

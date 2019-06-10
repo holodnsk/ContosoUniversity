@@ -83,7 +83,7 @@ namespace ContosoUniversity.Pages.Students
             }
 
             // IQueryable преобразуются в коллекцию путем вызова метода, такого как ToListAsync. 
-            int pageSize = 3;
+            int pageSize = 10;
             Student = await PaginatedList<Student>.CreateAsync(
                 studentIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
