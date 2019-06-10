@@ -16,12 +16,22 @@ namespace ContosoUniversity.Models
         [Column(TypeName = "money")]
         public decimal Budget { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date)] 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
         public int? InstructorID { get; set; }
+
+        // Атрибут Timestamp указывает, что этот столбец входит в предложение Where для команд Update и Delete.
+        // Добавление свойства RowVersion изменяет модель базы данных, которая требует миграции.
+        /// <code>
+        ///         dotnet ef migrations add RowVersion
+        ///         dotnet ef database update
+        /// </code>
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
         public Instructor Administrator { get; set; }
         public ICollection<Course> Courses { get; set; }
