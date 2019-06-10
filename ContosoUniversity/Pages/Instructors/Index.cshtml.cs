@@ -19,7 +19,7 @@ namespace ContosoUniversity.Pages.Instructors
             _context = context;
         }
 
-        public InstructorIndexData Instructor { get; set; }
+        public InstructorIndexData Instructor { get; set; }        
         public int InstructorID { get; set; }
         public int CourseID { get; set; }
 
@@ -31,12 +31,12 @@ namespace ContosoUniversity.Pages.Instructors
                 .Include(i => i.CourseAssignments)
                 .ThenInclude(i => i.Course)
                 .ThenInclude(i => i.Department)
-                // упреждающая загрузка для Enrollments и Students:
-                //.Include(i => i.CourseAssignments)
-                //.ThenInclude(i => i.Course)
-                //.ThenInclude(i => i.Enrollments)
-                //.ThenInclude(i => i.Student)
-                //.AsNoTracking()
+
+                .Include(i => i.CourseAssignments)
+                .ThenInclude(i => i.Course)
+                .ThenInclude(i => i.Enrollments)
+                .ThenInclude(i => i.Student)
+                .AsNoTracking()
                 .OrderBy(i => i.LastName)
                 .ToListAsync();
 
@@ -46,19 +46,10 @@ namespace ContosoUniversity.Pages.Instructors
                 Instructor instructor = Instructor.Instructors.Where(
                     i => i.ID == id.Value).Single();
                 Instructor.Courses = instructor.CourseAssignments.Select(s => s.Course);
+                Instructor.Enrollments = Instructor.Courses.First(). Enrollments;
             }
 
-            if (courseID != null)
-            {
-                CourseID = courseID.Value;
-                var selectedCourse = Instructor.Courses.Where(x => x.CourseID == courseID).Single();
-                await _context.Entry(selectedCourse).Collection(x => x.Enrollments).LoadAsync();
-                foreach (Enrollment enrollment in selectedCourse.Enrollments)
-                {
-                    await _context.Entry(enrollment).Reference(x => x.Student).LoadAsync();
-                }
-                Instructor.Enrollments = selectedCourse.Enrollments;
-            }
+            
         }
     }
 }
