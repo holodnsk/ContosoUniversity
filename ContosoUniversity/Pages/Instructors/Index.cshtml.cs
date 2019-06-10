@@ -46,17 +46,10 @@ namespace ContosoUniversity.Pages.Instructors
                 Instructor instructor = Instructor.Instructors.Where(
                     i => i.ID == id.Value).Single();
                 Instructor.Courses = instructor.CourseAssignments.Select(s => s.Course);
-                try
-                {
-                    Instructor.Enrollments = Instructor.Courses.First().Enrollments;
-                }
-                catch (Exception ignore)
-                {
-                }
-                
-                
+             
+                // TODO will knock debt
+                try { Instructor.Enrollments = Instructor.Courses.First().Enrollments; } catch (Exception ignore) {}
             }
-
             
         }
     }
