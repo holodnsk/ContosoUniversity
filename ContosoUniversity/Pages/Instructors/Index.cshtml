@@ -11,8 +11,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Фамилия</th>
-            <th>Имя</th>
+            <th>ФИО Инструктора</th>
             <th></th>
         </tr>
     </thead>
@@ -26,10 +25,7 @@
             }
             <tr class="@selectedRow">
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstMidName)
+                    @Html.DisplayFor(modelItem => item.FullName)
                 </td>
                 <td>
                     <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |

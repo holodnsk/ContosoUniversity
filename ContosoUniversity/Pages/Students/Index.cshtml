@@ -28,16 +28,7 @@
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort"
                    asp-route-currentFilter="@Model.CurrentFilter">
-                    @Html.DisplayName("Фамилия")
-                </a>
-            </th>
-            <th>
-                @Html.DisplayName("Имя")
-            </th>
-            <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
-                   asp-route-currentFilter="@Model.CurrentFilter">
-                    @Html.DisplayName("Дата регистрации")
+                    @Html.DisplayName("ФИО клиента")
                 </a>
             </th>
             <th></th>
@@ -48,13 +39,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstMidName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                    @Html.DisplayFor(modelItem => item.FullName)
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
