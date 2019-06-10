@@ -10,7 +10,7 @@ using ContosoUniversity.Models;
 
 namespace ContosoUniversity.Pages.Courses
 {
-    public class EditModel : PageModel
+    public class EditModel : DepartmentNamePageModel
     {
         private readonly ContosoUniversity.Models.SchoolContext _context;
 
@@ -36,36 +36,33 @@ namespace ContosoUniversity.Pages.Courses
             {
                 return NotFound();
             }
-           ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "DepartmentID");
+
+            // Select current DepartmentID.
+            PopulateDepartmentsDropDownList(_context, Course.DepartmentID);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Course).State = EntityState.Modified;
+            var courseToUpdate = await _context.Course.FindAsync(id);
 
-            try
+            if (await TryUpdateModelAsync<Course>(
+                courseToUpdate,
+                "course",   // Prefix for form value.
+                c => c.Credits, c => c.DepartmentID, c => c.Title))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CourseExists(Course.CourseID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
+            // Select DepartmentID if TryUpdateModelAsync fails.
+            PopulateDepartmentsDropDownList(_context, courseToUpdate.DepartmentID);
+            return Page();
         }
 
         private bool CourseExists(int id)
