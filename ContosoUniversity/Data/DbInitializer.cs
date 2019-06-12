@@ -76,7 +76,7 @@ namespace ContosoUniversity.Data
                 new Course {CourseID = 3141, Title = "Витория_Степаненко",   Credits = 4, DepartmentID = departments.Single( s => s.Name == "Харуй").DepartmentID},
                 new Course {CourseID = 2021, Title = "Виктор_Лытысов",    Credits = 3, DepartmentID = departments.Single( s => s.Name == "Капор").DepartmentID},
                 new Course {CourseID = 2042, Title = "Иван_Васильков",     Credits = 4, DepartmentID = departments.Single( s => s.Name == "Капор").DepartmentID},
-                new Course {CourseID = 2042, Title = "Юлия_Оливетто",     Credits = 4, DepartmentID = departments.Single( s => s.Name == "Женг").DepartmentID},
+                new Course {CourseID = 2043, Title = "Юлия_Оливетто",     Credits = 4, DepartmentID = departments.Single( s => s.Name == "Женг").DepartmentID},
             };
 
             foreach (Course c in courses)
@@ -101,15 +101,14 @@ namespace ContosoUniversity.Data
             context.SaveChanges();
 
             var courseInstructors = new CourseAssignment[]
-            {
-                new CourseAssignment {CourseID = courses.Single(c => c.Title == "Сергей_Сидоров" ).CourseID,InstructorID = instructors.Single(i => i.LastName == "Аберкромбель").ID},
-                new CourseAssignment {CourseID = courses.Single(c => c.Title == "Алексей_Петров" ).CourseID,InstructorID = instructors.Single(i => i.LastName == "Аберкромбель").ID},
-                new CourseAssignment {CourseID = courses.Single(c => c.Title == "Александр_Иванов" ).CourseID,InstructorID = instructors.Single(i => i.LastName == "Факоров").ID},
-                new CourseAssignment {CourseID = courses.Single(c => c.Title == "Елена_Матвеева" ).CourseID,InstructorID = instructors.Single(i => i.LastName == "Харуй").ID},
-                new CourseAssignment {CourseID = courses.Single(c => c.Title == "Витория_Степаненко" ).CourseID,InstructorID = instructors.Single(i => i.LastName == "Харуй").ID},
-                new CourseAssignment {CourseID = courses.Single(c => c.Title == "Виктор_Лытысов" ).CourseID,InstructorID = instructors.Single(i => i.LastName == "Капор").ID},
-                new CourseAssignment {CourseID = courses.Single(c => c.Title == "Иван_Васильков" ).CourseID,InstructorID = instructors.Single(i => i.LastName == "Капор").ID},
-                new CourseAssignment {CourseID = courses.Single(c => c.Title == "Юлия_Оливетто" ).CourseID,InstructorID = instructors.Single(i => i.LastName == "Женг").ID},
+            {new CourseAssignment{CourseID = courses.Single(c => c.Title == "Сергей_Сидоров").CourseID,InstructorID = instructors.Single(i => i.LastName == "Аберкромбель").ID},
+            new CourseAssignment{CourseID = courses.Single(c => c.Title == "Алексей_Петров").CourseID,InstructorID = instructors.Single(i => i.LastName == "Аберкромбель").ID},
+            new CourseAssignment{CourseID = courses.Single(c => c.Title == "Александр_Иванов").CourseID,InstructorID = instructors.Single(i => i.LastName == "Факоров").ID},
+            new CourseAssignment{CourseID = courses.Single(c => c.Title == "Елена_Матвеева").CourseID,InstructorID = instructors.Single(i => i.LastName == "Харуй").ID},
+            new CourseAssignment{CourseID = courses.Single(c => c.Title == "Витория_Степаненко").CourseID,InstructorID = instructors.Single(i => i.LastName == "Харуй").ID},
+            new CourseAssignment{CourseID = courses.Single(c => c.Title == "Виктор_Лытысов").CourseID,InstructorID = instructors.Single(i => i.LastName == "Капор").ID},
+            new CourseAssignment{CourseID = courses.Single(c => c.Title == "Иван_Васильков").CourseID,InstructorID = instructors.Single(i => i.LastName == "Капор").ID},
+            new CourseAssignment{CourseID = courses.Single(c => c.Title == "Юлия_Оливетто").CourseID,InstructorID = instructors.Single(i => i.LastName == "Женг").ID}
             };
 
             foreach (CourseAssignment ci in courseInstructors)
