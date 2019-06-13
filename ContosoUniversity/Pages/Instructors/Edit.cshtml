@@ -2,12 +2,11 @@
 @model ContosoUniversity.Pages.Instructors.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Личные данные инструктора";
 }
 
-<h2>Edit</h2>
+    <h2>Личные данные инструктора</h2>
 
-<h4>Instructor</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,29 +14,29 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Instructor.ID" />
             <div class="form-group">
-                <label asp-for="Instructor.LastName" class="control-label"></label>
+                <label class="control-label">Фамилия</label>
                 <input asp-for="Instructor.LastName" class="form-control" />
                 <span asp-validation-for="Instructor.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Instructor.FirstMidName" class="control-label"></label>
+                <label class="control-label">Имя</label>
                 <input asp-for="Instructor.FirstMidName" class="form-control" />
                 <span asp-validation-for="Instructor.FirstMidName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Instructor.HireDate" class="control-label"></label>
+                <label class="control-label">Дата регистрации в зале</label>
                 <input asp-for="Instructor.HireDate" class="form-control" />
                 <span asp-validation-for="Instructor.HireDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Вернуться к списку</a>
 </div>
 
 @section Scripts {

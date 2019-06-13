@@ -33,10 +33,9 @@
                 @Html.DisplayFor(modelItem => item.CourseAssignments.Count)
             </td>
             <td>
-                <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-page="./Index" asp-route-id="@item.ID">Выбрать</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Личные данные</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Удалить</a>
             </td>
 
         </tr>
@@ -46,13 +45,10 @@
 
 @if (Model.Instructor.Courses != null)
 {
-    <h3>Courses Taught by Selected Instructor</h3>
+    <h3>Персональные курсы инструктора</h3>
     <table class="table">
         <tr>
-            <th></th>
-            <th>Number</th>
-            <th>Title</th>
-            <th>Department</th>
+            <th>Клиент</th>
         </tr>
 
         @foreach (var item in Model.Instructor.Courses)
@@ -63,17 +59,9 @@
                 selectedRow = "success";
             }
             <tr class="@selectedRow">
-                <td>
-                    <a asp-page="./Index" asp-route-courseID="@item.CourseID">Select</a>
-                </td>
-                <td>
-                    @item.CourseID
-                </td>
+                
                 <td>
                     @item.Title
-                </td>
-                <td>
-                    @item.Department.Name
                 </td>
             </tr>
         }

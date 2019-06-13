@@ -2,30 +2,27 @@
 @model ContosoUniversity.Pages.Instructors.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Удаление инструктора";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Удалить из базы данных этого инструткора?</h3>
 <div>
-    <h4>Instructor</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Instructor.LastName)
+            @Html.DisplayName("Фамилия")
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Instructor.LastName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Instructor.FirstMidName)
+            @Html.DisplayName("Имя")
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Instructor.FirstMidName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Instructor.HireDate)
+            @Html.DisplayName("Дата регистрации")
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Instructor.HireDate)
@@ -34,7 +31,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="Instructor.ID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-page="./Index">Back to List</a>
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-page="./Index">Вернуться к списку</a>
     </form>
 </div>
