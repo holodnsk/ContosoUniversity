@@ -2,28 +2,20 @@
 @model ContosoUniversity.Pages.Courses.IndexModel
 
 @{
-    ViewData["Title"] = "Courses";
+    ViewData["Title"] = "Программы тренировок";
 }
 
-<h2>Index</h2>
-
-<p>
+<!-- <p>
     <a asp-page="Create">Create New</a>
-</p>
+</p> -->
 <table class="table">
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Course[0].CourseID)
+            @Html.DisplayName("Клиент")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Course[0].Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Course[0].Credits)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Course[0].Department)
+            @Html.DisplayName("Тренер")
         </th>
         <th></th>
     </tr>
@@ -32,14 +24,9 @@
 @foreach (var item in Model.Course) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CourseID)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Credits)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.Department.Name)
         </td>

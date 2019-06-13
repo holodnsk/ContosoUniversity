@@ -11,9 +11,10 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ФИО Инструктора</th>
-            <th></th>
+            <th>Инструктор</th>
             <th>Количество клиентов</th>
+            <th></th>
+            
         </tr>
     </thead>
     <tbody>
@@ -24,20 +25,21 @@
             {
                 selectedRow = "success";
             }
-            <tr class="@selectedRow">
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
-                </td>
-                <td>
-                    <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
-                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CourseAssignments.Count)
-                </td>
-            </tr>
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseAssignments.Count)
+            </td>
+            <td>
+                <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+
+        </tr>
         }
     </tbody>
 </table>
